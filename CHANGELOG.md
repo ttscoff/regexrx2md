@@ -1,3 +1,7 @@
+### 1.0.0
+
+2023-08-20 12:25
+
 # Change Log
 
 All notable changes to this project will be documented in this file.
