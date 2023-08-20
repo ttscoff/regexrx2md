@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-RSpec.describe MakenewRbgem::Todo do
-  subject(:todo) { MakenewRbgem::Todo.new }
+RSpec.describe RegExRX2MD::Todo do
+  subject(:todo) { RegExRX2MD::Todo.new }
 
   describe ".todo" do
     it "returns todo" do

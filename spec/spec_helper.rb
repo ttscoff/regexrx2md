@@ -5,7 +5,7 @@ require "simplecov-console"
 
 SimpleCov.start
 
-require "makenew-rbgem"
+require "regexrx2md"
 
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
   SimpleCov::Formatter::HTMLFormatter,

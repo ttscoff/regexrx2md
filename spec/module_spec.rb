@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-RSpec.describe MakenewRbgem do
+RSpec.describe RegExRX2MD do
   it "has a version number" do
-    expect(MakenewRbgem::VERSION).not_to be nil
+    expect(RegExRX2MD::VERSION).not_to be nil
   end
 end

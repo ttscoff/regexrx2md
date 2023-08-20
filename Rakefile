@@ -18,7 +18,7 @@ desc "Open an interactive ruby console"
 task :console do
   require "irb"
   require "bundler/setup"
-  require "makenew-rbgem"
+  require "regexrx2md"
   ARGV.clear
   IRB.start
 end
