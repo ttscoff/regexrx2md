@@ -20,14 +20,20 @@ Gem::Specification.new do |spec|
   spec.metadata["changelog_uri"] = "#{spec.metadata["source_code_uri"]}/blob/main/CHANGELOG.md"
   spec.metadata["github_repo"] = "git@github.com:ttscoff/regexrx2md.git"
 
-  spec.bindir = "bin"
-  spec.executables = spec.files.grep(%r{\A#{spec.bindir}/}) { |f| File.basename(f) }
+  spec.require_paths << 'lib'
 
-  spec.files = Dir["lib/**/*.rb"].reject { |f| f.end_with?("_spec.rb") }
-  spec.files += Dir["[A-Z]*"]
+  spec.extra_rdoc_files = ['README.md']
+  spec.rdoc_options << '--title' << 'snibbets' << '--main' << 'README.md' << '--markup' << 'markdown'
 
-  spec.add_dependency "nokogiri", "~> 1.5"
-  spec.add_dependency "erb", "~> 4.0"
+  spec.bindir = 'bin'
+  spec.executables << 'regexrx2md'
+
+  spec.files = Dir.chdir(File.expand_path('..', __FILE__)) do
+    `git ls-files -z`.split("\x0").reject { |f| f.strip =~ %r{^((test|spec|features)/|\.git|buildnotes|.*\.taskpaper)} }
+  end
+
+  spec.add_runtime_dependency "nokogiri", "~> 1.5"
+  spec.add_runtime_dependency "erb", "~> 4.0"
 
   spec.add_development_dependency "bundler", "~> 2.0"
   spec.add_development_dependency "awesome_print", "~> 1.9"

@@ -1,0 +1,3 @@
+= RegExRX2MD
+
+A command line tool for converting native RegExRX files to Markdown snippet files.
