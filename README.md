@@ -1,23 +1,24 @@
 # RegExRX2MD
 
 [![RubyGems.org](https://img.shields.io/gem/v/regexrx2md)](https://rubygems.org/gems/regexrx2md)
-[![GitHub Actions](https://github.com/ttscoff/regexrx2md/actions/workflows/check.yml/badge.svg)](https://github.com/ttscoff/regexrx2md/actions/workflows/check.yml)
 
-Convert RegExRX file to Markdown
+Convert [RegExRX](https://apps.apple.com/us/app/regexrx/id498370702?mt=12) file to Markdown
 
 ## Description
 
-TODO
+Converts native RegExRX documents to Markdown files containing code snippets that work with [Snibbets](https://brettterpstra.com/projects/snibbets/) or any Markdown viewer.
 
 ## Installation
 
-Add this as a dependency to your project using [Bundler] with
-
 ```
-$ bundle add regexrx2md
+$ gem install regexrx2md
 ```
 
-[bundler]: https://bundler.io/
+If you run into errors, try:
+
+```
+$ gem install --user-install regexrx2md
+```
 
 ## Development and Testing
 
@@ -32,13 +33,13 @@ $ bundle install
 Run the command below
 
 ```
-$ bundle exec rake
+$ bundle exec bin/regexrx2md
 ```
 
 Open an interactive ruby console with
 
 ```
-$ bundle exec rake
+$ bundle exec rake console
 ```
 
 Primary development tasks are defined as [rake] tasks in the `Rakefile`
@@ -50,6 +51,29 @@ $ bundle exec rake -T
 ```
 
 [rake]: https://ruby.github.io/rake/
+
+### Usage
+
+Run `regexrx2md` in a directory containing `.regexrx` files and all matching files will be processed to Markdown files in a `markdown` subdirectory.
+
+Options:
+
+```
+Usage: bin/regexrx2md [OPTIONS] [SOURCE FILE/DIR]
+
+Converts RegExRx files to Markdown, optionally with template.
+    If source argument is empty, process all .regexrx files in current directory.
+
+Options:
+    -o, --output-dir=DIRECTORY       Output folder
+                                     Defaults to "./markdown"
+    -p, --prefix=PREFIX              Prefix added before output filenames
+                                     Space automatically added after prefix
+    -t, --template=TEMPLATE          Use alternate ERB template
+    -h, --help                       Display this screen
+    -x, --example                    Output the default ERB template to STDOUT
+```
+
 
 ### Source code
 
@@ -91,31 +115,6 @@ Publishing may be triggered using a [workflow_dispatch on GitHub Actions].
 
 [gem release]: https://github.com/svenfuchs/gem-release
 [workflow_dispatch on github actions]: https://github.com/ttscoff/regexrx2md/actions?query=workflow%3Aversion
-
-## GitHub Actions
-
-_GitHub Actions should already be configured: this section is for reference only._
-
-The following repository secrets must be set on [GitHub Actions]:
-
-- `RUBYGEMS_API_KEY`: RubyGems.org token for publishing gems.
-
-These must be set manually.
-
-### Secrets for Optional GitHub Actions
-
-The version and format GitHub actions
-require a user with write access to the repository.
-Set these additional secrets to enable the action:
-
-- `GH_TOKEN`: A personal access token for the user.
-- `GIT_USER_NAME`: The GitHub user's real name.
-- `GIT_USER_EMAIL`: The GitHub user's email.
-- `GPG_PRIVATE_KEY`: The GitHub user's [GPG private key].
-- `GPG_PASSPHRASE`: The GitHub user's GPG passphrase.
-
-[github actions]: https://github.com/features/actions
-[gpg private key]: https://github.com/marketplace/actions/import-gpg#prerequisites
 
 ## Contributing
 

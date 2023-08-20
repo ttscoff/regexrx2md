@@ -1,19 +1,28 @@
 PATH
   remote: .
   specs:
-    regexrx2md (2.4.1)
+    regexrx2md (1.0.0)
+      erb (~> 4.0)
+      nokogiri (~> 1.5)
 
 GEM
   remote: https://rubygems.org/
   specs:
     ansi (1.5.0)
     ast (2.4.2)
+    cgi (0.3.6)
     diff-lcs (1.5.0)
     docile (1.4.0)
+    erb (4.0.2)
+      cgi (>= 0.3.3)
     gem-release (2.2.2)
     json (2.6.3)
     language_server-protocol (3.17.0.2)
+    mini_portile2 (2.8.4)
     multi_json (1.15.0)
+    nokogiri (1.15.4)
+      mini_portile2 (~> 2.8.2)
+      racc (~> 1.4)
     parallel (1.22.1)
     parse_gemspec (1.0.0)
     parse_gemspec-cli (1.0.0)
@@ -22,6 +31,7 @@ GEM
       thor
     parser (3.1.3.0)
       ast (~> 2.4.1)
+    racc (1.7.1)
     rainbow (3.1.1)
     rake (13.0.6)
     regexp_parser (2.6.1)
@@ -75,6 +85,7 @@ GEM
     unicode-display_width (2.3.0)
 
 PLATFORMS
+  arm64-darwin-21
   x64-mingw-ucr
   x64-mingw-ucrt
   x64-mingw32
@@ -84,9 +95,9 @@ PLATFORMS
 DEPENDENCIES
   bundler (~> 2.0)
   gem-release (~> 2.2)
-  regexrx2md!
   parse_gemspec-cli (~> 1.0)
   rake (~> 13.0)
+  regexrx2md!
   rspec (~> 3.0)
   simplecov (~> 0.21)
   simplecov-console (~> 0.9)

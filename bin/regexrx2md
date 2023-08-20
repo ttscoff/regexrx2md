@@ -1,0 +1,80 @@
+#!/usr/bin/env ruby -W1
+
+require 'optparse'
+require 'fileutils'
+
+$LOAD_PATH.unshift File.join(__dir__, '..', 'lib')
+
+require 'regexrx2md'
+
+options = {}
+optparse = OptionParser.new do |opts|
+  opts.banner = "Usage: #{__FILE__} [OPTIONS] [SOURCE FILE/DIR]"
+  opts.separator ''
+  opts.separator 'Converts RegExRx files to Markdown, optionally with template.
+    If source argument is empty, process all .regexrx files in current directory.'
+  opts.separator ''
+  opts.separator 'Options:'
+  options[:prefix] = ''
+  options[:output] = 'markdown'
+  opts.on('-o', '--output-dir=DIRECTORY', 'Output folder', 'Defaults to "./markdown"') do |output|
+    options[:output] = output
+  end
+  opts.on('-p', '--prefix=PREFIX', 'Prefix added before output filenames',
+          'Space automatically added after prefix') do |prefix|
+    options[:prefix] = "#{prefix.strip} "
+  end
+  options[:template] = nil
+  opts.on('-t', '--template=TEMPLATE', 'Use alternate ERB template') do |template|
+    options[:template] = template
+  end
+  opts.on('-h', '--help', 'Display this screen') do
+    puts opts
+    exit
+  end
+  opts.on('-x', '--example', 'Output the default ERB template to STDOUT') do
+    puts RegExRX2MD::DEFAULT_TEMPLATE
+    exit
+  end
+end
+optparse.parse!
+
+sources = ['.']
+
+unless ARGV.empty?
+  sources = []
+  ARGV.each do |arg|
+    if File.exist?(arg)
+      sources << arg
+    else
+      warn %(File "#{arg}" not found)
+    end
+  end
+end
+
+# If ERB template is specified, use that instead of the default
+if options[:template]
+  if File.exist?(File.expand_path(options[:template])) &&
+     File.basename(options[:template]) =~ /\.erb$/
+    template = IO.read(File.expand_path(options[:template]))
+  else
+    warn %(Specified template "#{options[:template]}" is not a valid template (erb))
+    Process.exit 1
+  end
+else
+  template = RegExRX2MD::DEFAULT_TEMPLATE
+end
+
+FileUtils.mkdir_p(options[:output]) unless File.exist?(options[:output])
+
+# For each source file
+sources.each do |src|
+  # If the source is a directory, process all .regexrx files
+  if File.directory?(src)
+    Dir.glob(File.join(src, '*.regexrx')).each do |file|
+      RegExRX2MD.process_file(file, options, template)
+    end
+  else # if a single file
+    RegExRX2MD.process_file(src, options, template)
+  end
+end

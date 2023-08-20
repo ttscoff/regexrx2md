@@ -26,6 +26,9 @@ Gem::Specification.new do |spec|
   spec.files = Dir["lib/**/*.rb"].reject { |f| f.end_with?("_spec.rb") }
   spec.files += Dir["[A-Z]*"]
 
+  spec.add_dependency "nokogiri", "~> 1.5"
+  spec.add_dependency "erb", "~> 4.0"
+
   spec.add_development_dependency "bundler", "~> 2.0"
   spec.add_development_dependency "gem-release", "~> 2.2"
   spec.add_development_dependency "parse_gemspec-cli", "~> 1.0"
