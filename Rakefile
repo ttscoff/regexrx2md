@@ -3,12 +3,29 @@
 require "bundler/gem_tasks"
 require "rspec/core/rake_task"
 require "standard/rake"
+require 'rdoc/task'
+require 'yard'
+
+Rake::RDocTask.new do |rd|
+  rd.main = "README.rdoc"
+  rd.rdoc_files.include("README.rdoc", "lib/**/*.rb", "bin/**/*")
+  rd.title = 'Snibbets'
+end
+
+YARD::Rake::YardocTask.new do |t|
+ t.files = ['lib/na/*.rb']
+ t.options = ['--markup-provider=redcarpet', '--markup=markdown', '--no-private', '-p', 'yard_templates']
+ # t.stats_options = ['--list-undoc']
+end
 
 RSpec::Core::RakeTask.new(:spec) do |t|
   t.rspec_opts = "--pattern {spec,lib}/**/*_spec.rb"
 end
 
 task default: %i[lint test]
+
+desc 'Alias for build'
+task :package => :build
 
 task test: "spec"
 task lint: "standard"

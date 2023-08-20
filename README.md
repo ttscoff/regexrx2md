@@ -4,6 +4,7 @@
 
 Convert [RegExRX](https://apps.apple.com/us/app/regexrx/id498370702?mt=12) file to Markdown
 
+<!--README-->
 ## Description
 
 Converts native RegExRX documents to Markdown files containing code snippets that work with [Snibbets](https://brettterpstra.com/projects/snibbets/) or any Markdown viewer.
@@ -19,6 +20,46 @@ If you run into errors, try:
 ```
 $ gem install --user-install regexrx2md
 ```
+
+### Usage
+
+Run `regexrx2md` in a directory containing `.regexrx` files and all matching files will be processed to Markdown files in a `markdown` subdirectory.
+
+If the argument is a directory, all `.regexrx` files in the directory will be processed and output to the `--output-dir` destination (which defaults to `markdown`). If the argument is a single `.regexrx` file, only that file will be processed. Markdown filenames will be based on the title of the RegExRX file, either from the built-in name field, or from the filename if it's untitled.
+
+Options:
+
+```
+Usage: bin/regexrx2md [OPTIONS] [SOURCE FILE/DIR]
+
+Converts RegExRx files to Markdown, optionally with template.
+    If source argument is empty, process all .regexrx files in current directory.
+
+Options:
+    -o, --output-dir=DIRECTORY       Output folder
+                                     Defaults to "./markdown"
+    -p, --prefix=PREFIX              Prefix added before output filenames
+                                     Space automatically added after prefix
+    -t, --template=TEMPLATE          Use alternate ERB template
+    -h, --help                       Display this screen
+    -x, --example                    Output the default ERB template to STDOUT
+```
+
+You can specify a prefix for filenames using the `--prefix` option. For example, using `--prefix="RX - "` would cause `URL detector.regexrx` to create `RX - URL detector.md` as the Markdown output file.
+
+The default template outputs notes as block quotes and snippets as Ruby fenced code blocks. You can adjust this by using a custom ERB template. Just output the default template using `--example`, save it to a new file and edit as needed, then pass the new file using `--template=NEW_FILE.erb`. The template file must be named with an `erb` extension.
+<!--END README-->
+
+### Source code
+
+The [source code] is hosted on GitHub.
+Clone the project with
+
+```
+$ git clone git@github.com:ttscoff/regexrx2md.git
+```
+
+[source code]: https://github.com/ttscoff/regexrx2md
 
 ## Development and Testing
 
@@ -52,40 +93,6 @@ $ bundle exec rake -T
 
 [rake]: https://ruby.github.io/rake/
 
-### Usage
-
-Run `regexrx2md` in a directory containing `.regexrx` files and all matching files will be processed to Markdown files in a `markdown` subdirectory.
-
-Options:
-
-```
-Usage: bin/regexrx2md [OPTIONS] [SOURCE FILE/DIR]
-
-Converts RegExRx files to Markdown, optionally with template.
-    If source argument is empty, process all .regexrx files in current directory.
-
-Options:
-    -o, --output-dir=DIRECTORY       Output folder
-                                     Defaults to "./markdown"
-    -p, --prefix=PREFIX              Prefix added before output filenames
-                                     Space automatically added after prefix
-    -t, --template=TEMPLATE          Use alternate ERB template
-    -h, --help                       Display this screen
-    -x, --example                    Output the default ERB template to STDOUT
-```
-
-
-### Source code
-
-The [source code] is hosted on GitHub.
-Clone the project with
-
-```
-$ git clone git@github.com:ttscoff/regexrx2md.git
-```
-
-[source code]: https://github.com/ttscoff/regexrx2md
-
 ### Requirements
 
 You will need [Ruby] with [Bundler].
@@ -106,15 +113,6 @@ $ bundle install
 [bundler]: https://bundler.io/
 [ruby]: https://www.ruby-lang.org/
 [rbenv]: https://github.com/rbenv/rbenv
-
-### Publishing
-
-Use [gem release] to release a new version.
-
-Publishing may be triggered using a [workflow_dispatch on GitHub Actions].
-
-[gem release]: https://github.com/svenfuchs/gem-release
-[workflow_dispatch on github actions]: https://github.com/ttscoff/regexrx2md/actions?query=workflow%3Aversion
 
 ## Contributing
 
