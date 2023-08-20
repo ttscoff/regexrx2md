@@ -9,7 +9,7 @@ require 'yard'
 Rake::RDocTask.new do |rd|
   rd.main = "README.rdoc"
   rd.rdoc_files.include("README.rdoc", "lib/**/*.rb", "bin/**/*")
-  rd.title = 'Snibbets'
+  rd.title = 'RegExRX2MD'
 end
 
 YARD::Rake::YardocTask.new do |t|
@@ -44,7 +44,7 @@ desc 'Development version check'
 task :ver do
   gver = `git ver`
   cver = IO.read(File.join(File.dirname(__FILE__), 'CHANGELOG.md')).match(/^#+ (\d+\.\d+\.\d+(\w+)?)/)[1]
-  res = `grep VERSION lib/snibbets/version.rb`
+  res = `grep VERSION lib/regexrx2md/version.rb`
   version = res.match(/VERSION *= *['"](\d+\.\d+\.\d+(\w+)?)/)[1]
   puts "git tag: #{gver}"
   puts "version.rb: #{version}"
@@ -59,7 +59,7 @@ end
 desc 'Bump incremental version number'
 task :bump, :type do |_, args|
   args.with_defaults(type: 'inc')
-  version_file = 'lib/snibbets/version.rb'
+  version_file = 'lib/regexrx2md/version.rb'
   content = IO.read(version_file)
   content.sub!(/VERSION = '(?<major>\d+)\.(?<minor>\d+)\.(?<inc>\d+)(?<pre>\S+)?'/) do
     m = Regexp.last_match
